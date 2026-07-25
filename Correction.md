@@ -40,11 +40,12 @@ The evaluated learner has to explain to you in simple terms:
 
 ### Documentation check
 
-Ensure that both USER_DOC.md and DEV_DOC.md files are present at the root of the repository.
-USER_DOC.md must provide basic usage instructions for an end user or administrator (start/stop the stack, access the website and admin panel, manage credentials, basic checks).
-DEV_DOC.md must provide developer-oriented instructions (prerequisites, setup, Makefile usage, docker compose commands, data persistence).
-If any of these files are missing or empty, the review ends now.
-Simple setup
+- Ensure that both USER_DOC.md and DEV_DOC.md files are present at the root of the repository.
+- USER_DOC.md must provide basic usage instructions for an end user or administrator (start/stop the stack, access the website and admin panel, manage credentials, basic checks).
+- DEV_DOC.md must provide developer-oriented instructions (prerequisites, setup, Makefile usage, docker compose commands, data persistence).
+- If any of these files are missing or empty, the review ends now.
+
+### Simple setup
 
 Ensure that NGINX can be accessed by port 443 only. Once done, open the page.
 Ensure that a SSL/TLS certificate is used.
