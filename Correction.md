@@ -33,11 +33,12 @@ The evaluated learner has to explain to you in simple terms:
 
 ### README check
 
-Ensure that a README.md file is present at the root of the repository.
-The very first line must follow the required format: "This project has been created as part of the 42 curriculum by <login...>" (italicized).
-Check that the README contains at least the required sections: Description, Instructions, Resources (with explanation of how AI was used).
-If any of these elements are missing, the evaluation ends now.
-Documentation check
+- Ensure that a README.md file is present at the root of the repository.
+- The very first line must follow the required format: "This project has been created as part of the 42 curriculum by <login...>" (italicized).
+- Check that the README contains at least the required sections: Description, Instructions, Resources (with explanation of how AI was used).
+- If any of these elements are missing, the evaluation ends now.
+
+### Documentation check
 
 Ensure that both USER_DOC.md and DEV_DOC.md files are present at the root of the repository.
 USER_DOC.md must provide basic usage instructions for an end user or administrator (start/stop the stack, access the website and admin panel, manage credentials, basic checks).
