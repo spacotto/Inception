@@ -47,9 +47,9 @@ The evaluated learner has to explain to you in simple terms:
 
 ### Simple setup
 
-Ensure that NGINX can be accessed by port 443 only. Once done, open the page.
-Ensure that a SSL/TLS certificate is used.
-Ensure that the WordPress website is properly installed and configured (you shouldn't see the WordPress Installation page). To access it, open https://login.42.fr in your browser, where login is the login of the evaluated learner. You shouldn't be able to access the site via http://login.42.fr. If something doesn't work as expected, the evaluation process ends now.
+- Ensure that NGINX can be accessed by port 443 only. Once done, open the page.
+- Ensure that a SSL/TLS certificate is used.
+- Ensure that the WordPress website is properly installed and configured (you shouldn't see the WordPress Installation page). To access it, open https://login.42.fr in your browser, where login is the login of the evaluated learner. You shouldn't be able to access the site via http://login.42.fr. If something doesn't work as expected, the evaluation process ends now.
 Docker Basics
 
 Start by checking the Dockerfiles. There must be one Dockerfile per service. Ensure that the Dockerfiles are not empty files. If it's not the case or if a Dockerfile is missing, the evaluation process ends now.
