@@ -21,18 +21,17 @@
 - Examine all the scripts in the repository. Ensure none of them runs an infinite loop. The following are a few examples of prohibited commands: 'sleep infinity', 'tail -f /dev/null', 'tail -f /dev/random'
 - Run the Makefile.
 
-Mandatory part
-This project involves setting up a small infrastructure composed of different services using docker compose. Ensure that all of the following points are correct.
+## Mandatory part
 
-Activity overview
+### Activity overview
 
 The evaluated learner has to explain to you in simple terms:
+- How Docker and docker compose work
+- The difference between a Docker image used with docker compose and without docker compose
+- The benefit of Docker compared to VMs
+- The pertinence of the directory structure required for this project (an example is provided in the subject's PDF file).
 
-How Docker and docker compose work
-The difference between a Docker image used with docker compose and without docker compose
-The benefit of Docker compared to VMs
-The pertinence of the directory structure required for this project (an example is provided in the subject's PDF file).
-README check
+### README check
 
 Ensure that a README.md file is present at the root of the repository.
 The very first line must follow the required format: "This project has been created as part of the 42 curriculum by <login...>" (italicized).
