@@ -58,12 +58,14 @@ The evaluated learner has to explain to you in simple terms:
 - Ensure that every container is built from the penultimate stable version of Alpine/Debian. If a Dockerfile does not start with 'FROM alpine:X.X.X' or 'FROM debian:XXXXX', or any other local image, the evaluation process ends now.
 - The Docker images must have the same name as their corresponding service. Otherwise, the evaluation process ends now.
 - Ensure that the Makefile has set up all the services via docker compose. This means that the containers must have been built using docker compose and that no crash happened. Otherwise, the evaluation process ends.
-Docker Network
 
-Ensure that docker-network is used by checking the docker-compose.yml file. Then run the 'docker network ls' command to verify that a network is visible.
-The evaluated learner has to give you a simple explanation of docker-network.
-If any of the above points is not correct, the evaluation process ends now.
-NGINX with SSL/TLS
+### Docker Network
+
+- Ensure that docker-network is used by checking the docker-compose.yml file. Then run the 'docker network ls' command to verify that a network is visible.
+- The evaluated learner has to give you a simple explanation of docker-network.
+- If any of the above points is not correct, the evaluation process ends now.
+
+### NGINX with SSL/TLS
 
 Ensure that there is a Dockerfile.
 Using the 'docker compose ps' command, ensure that the container was created (using the flag '-p' is authorized if necessary).
