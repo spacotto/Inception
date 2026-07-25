@@ -110,7 +110,7 @@ The evaluated learner has to explain to you in simple terms:
 
 For this project, the bonus part is intended to be simple. A Dockerfile must be written for each additional service. Thus, each service will run inside its own container and will have, if necessary, its dedicated volume. Evaluate the bonus part only if the mandatory part has been completed entirely and perfectly. Perfect means the mandatory part has been fully completed and functions without any malfunctions. If you have not passed ALL the mandatory requirements, your bonus part will not be evaluated at all.
 
-## Bonus List
+### Bonus List
 
 - Set up redis cache for your WordPress website in order to properly manage the cache.
 - Set up a FTP server container pointing to the volume of your WordPress website.
