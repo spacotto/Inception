@@ -67,49 +67,53 @@ The evaluated learner has to explain to you in simple terms:
 
 ### NGINX with SSL/TLS
 
-Ensure that there is a Dockerfile.
-Using the 'docker compose ps' command, ensure that the container was created (using the flag '-p' is authorized if necessary).
-Try to access the service via http (port 80) and verify that you cannot connect.
-Open https://login.42.fr/ in your browser, where login is the login of the evaluated learner. The displayed page must be the configured WordPress website (you shouldn't see the WordPress Installation page).
-The use of a TLS v1.2 or TLS v1.3 certificate is mandatory and must be demonstrated. The SSL/TLS certificate doesn't have to be recognized. A self-signed certificate warning may appear.
-If any of the above points is not clearly explained and correct, the evaluation process ends now.
-WordPress with php-fpm and its volume
+- Ensure that there is a Dockerfile.
+- Using the 'docker compose ps' command, ensure that the container was created (using the flag '-p' is authorized if necessary).
+- Try to access the service via http (port 80) and verify that you cannot connect.
+- Open https://login.42.fr/ in your browser, where login is the login of the evaluated learner. The displayed page must be the configured WordPress website (you shouldn't see the WordPress Installation page).
+- The use of a TLS v1.2 or TLS v1.3 certificate is mandatory and must be demonstrated. The SSL/TLS certificate doesn't have to be recognized. A self-signed certificate warning may appear.
+- If any of the above points is not clearly explained and correct, the evaluation process ends now.
 
-Ensure that there is a Dockerfile.
-Ensure that there is no NGINX in the Dockerfile.
-Using the 'docker compose ps' command, ensure that the container was created (using the flag '-p' is authorized if necessary).
-Ensure that there is a Volume. To do so: Run the command 'docker volume ls' then 'docker volume inspect <volume name>'. Verify that the result in the standard output contains the path '/home/login/data/', where login is the login of the evaluated learner.
-Ensure that you can add a comment using the available WordPress user.
-Sign in with the administrator account to access the Administration dashboard. The Admin username must not include 'admin' or 'Admin' (e.g., admin, administrator, Admin-login, admin-123, and so forth).
-From the Administration dashboard, edit a page. Verify on the website that the page has been updated.
-If any of the above points is not correct, the evaluation process ends now.
-MariaDB and its volume
+### WordPress with php-fpm and its volume
 
-Ensure that there is a Dockerfile.
-Ensure that there is no NGINX in the Dockerfile.
-Using the 'docker compose ps' command, ensure that the container was created (using the flag '-p' is authorized if necessary).
-Ensure that there is a Volume. To do so: Run the command 'docker volume ls' then 'docker volume inspect <volume name>'. Verify that the result in the standard output contains the path '/home/login/data/', where login is the login of the evaluated learner.
-The evaluated learner must be able to explain you how to login into the database. Verify that the database is not empty.
-If any of the above points is not correct, the evaluation process ends now.
-Persistence!
+- Ensure that there is a Dockerfile.
+- Ensure that there is no NGINX in the Dockerfile.
+- Using the 'docker compose ps' command, ensure that the container was created (using the flag '-p' is authorized if necessary).
+- Ensure that there is a Volume. To do so: Run the command 'docker volume ls' then 'docker volume inspect <volume name>'. Verify that the result in the standard output contains the path '/home/login/data/', where login is the login of the evaluated learner.
+- Ensure that you can add a comment using the available WordPress user.
+- Sign in with the administrator account to access the Administration dashboard. The Admin username must not include 'admin' or 'Admin' (e.g., admin, administrator, Admin-login, admin-123, and so forth).
+- From the Administration dashboard, edit a page. Verify on the website that the page has been updated.
+- If any of the above points is not correct, the evaluation process ends now.
 
-This part is pretty straightforward. You have to reboot the virtual machine. Once it has restarted, launch docker compose again. Then, verify that everything is functional, and that both WordPress and MariaDB are configured. The changes you made previously to the WordPress website should still be here. If any of the above points is not correct, the evaluation process ends now.
-Configuration modification
+### MariaDB and its volume
 
-During the defense, the reviewer must ask the evaluated person to modify the configuration of one service (for example by changing the port it is using).
-The reviewer is free to choose which service and which new port, as long as the port is available on the system.
-After the change, the evaluated person must rebuild and restart the project.
-The service must remain accessible and functional with the new configuration.
-If the modification cannot be performed or the service no longer works, the evaluation ends now.
-Bonus
+- Ensure that there is a Dockerfile.
+- Ensure that there is no NGINX in the Dockerfile.
+- Using the 'docker compose ps' command, ensure that the container was created (using the flag '-p' is authorized if necessary).
+- Ensure that there is a Volume. To do so: Run the command 'docker volume ls' then 'docker volume inspect <volume name>'. Verify that the result in the standard output contains the path '/home/login/data/', where login is the login of the evaluated learner.
+- The evaluated learner must be able to explain you how to login into the database. Verify that the database is not empty.
+- If any of the above points is not correct, the evaluation process ends now.
+
+### Persistence!
+
+- This part is pretty straightforward. You have to reboot the virtual machine. Once it has restarted, launch docker compose again. Then, verify that everything is functional, and that both WordPress and MariaDB are configured. The changes you made previously to the WordPress website should still be here. If any of the above points is not correct, the evaluation process ends now.
+
+### Configuration modification
+
+- During the defense, the reviewer must ask the evaluated person to modify the configuration of one service (for example by changing the port it is using).
+- The reviewer is free to choose which service and which new port, as long as the port is available on the system.
+- After the change, the evaluated person must rebuild and restart the project.
+- The service must remain accessible and functional with the new configuration.
+- If the modification cannot be performed or the service no longer works, the evaluation ends now.
+
+## Bonus
+
 For this project, the bonus part is intended to be simple. A Dockerfile must be written for each additional service. Thus, each service will run inside its own container and will have, if necessary, its dedicated volume. Evaluate the bonus part only if the mandatory part has been completed entirely and perfectly. Perfect means the mandatory part has been fully completed and functions without any malfunctions. If you have not passed ALL the mandatory requirements, your bonus part will not be evaluated at all.
 
-Bonus
+## Bonus List
 
-Bonus list:
-
-Set up redis cache for your WordPress website in order to properly manage the cache.
-Set up a FTP server container pointing to the volume of your WordPress website.
-Create a simple static website in the language of your choice except PHP (yes, PHP is excluded). For example, a showcase site or a site for presenting your resume.
-Set up Adminer.
-Set up a service of your choice that you think is useful. During the defense, you will have to justify your choice. Add 1 point per bonus authorized in the subject. Verify and test the proper functioning and implementation of each additional service. For the free choice service, the evaluated student must provide a simple explanation of how it works and why they believe it is useful.
+- Set up redis cache for your WordPress website in order to properly manage the cache.
+- Set up a FTP server container pointing to the volume of your WordPress website.
+- Create a simple static website in the language of your choice except PHP (yes, PHP is excluded). For example, a showcase site or a site for presenting your resume.
+- Set up Adminer.
+- Set up a service of your choice that you think is useful. During the defense, you will have to justify your choice. Add 1 point per bonus authorized in the subject. Verify and test the proper functioning and implementation of each additional service. For the free choice service, the evaluated student must provide a simple explanation of how it works and why they believe it is useful.
