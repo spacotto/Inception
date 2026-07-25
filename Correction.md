@@ -1,25 +1,26 @@
-Preliminary tests
+## Preliminary
 
-For example, the use of a local .env file to store info is allowed, and/or also the use of docker secrets In case any credentials, API keys, or passwords are available in the git repository and outside of secrets files created during the evaluation, the evaluation stops and the mark is 0.
-Defense can only happen if the evaluated learner or group is present. This way everybody learns by sharing knowledge with each other.
-If no work has been submitted (or wrong files, wrong directory, or wrong filenames), the grade is 0, and the evaluation process ends.
-For this project, you have to clone their Git repository on their station.
-General instructions
-General instructions
+- For example, the use of a local .env file to store info is allowed, and/or also the use of docker secrets In case any credentials, API keys, or passwords are available in the git repository and outside of secrets files created during the evaluation, the evaluation stops and the mark is 0.
+- Defense can only happen if the evaluated learner or group is present. This way everybody learns by sharing knowledge with each other.
+- If no work has been submitted (or wrong files, wrong directory, or wrong filenames), the grade is 0, and the evaluation process ends.
+- For this project, you have to clone their Git repository on their station.
 
-For the entire evaluation process, if you don't know how to check a requirement, or verify anything, the evaluated learner has to help you.
-Ensure that all the files required to configure the application are located inside a srcs folder. The srcs folder must be located at the root of the repository.
-Ensure that a Makefile is located at the root of the repository.
-Before starting the evaluation, run this command in the terminal: "docker stop $(docker ps -qa); docker rm $(docker ps -qa); docker rmi -f $(docker images -qa); docker volume rm $(docker volume ls -q); docker network rm $(docker network ls -q) 2>/dev/null"
-Then, run the following command to remove the host-mapped volume data directory (replace student_login with the login of the evaluated student): "sudo rm -rf /home/student_login/data/*"
-Read the docker-compose.yml file. There mustn't be 'network: host' in it or 'links:'. Otherwise, the evaluation ends now.
-Read the docker-compose.yml file. There must be 'network(s)' in it. Otherwise, the evaluation ends now.
-Examine the Makefile and all the scripts in which Docker is used. There mustn't be '--link' in any of them. Otherwise, the evaluation ends now.
-Examine the Dockerfiles. If you see 'tail -f' or any command run in background in any of them in the ENTRYPOINT section, the evaluation ends now. Same thing if 'bash' or 'sh' are used but not for running a script (e.g, 'nginx & bash' or 'bash').
-Examine the Dockerfiles. The containers must be built either from the penultimate stable version of Alpine or Debian.
-If the entrypoint is a script (e.g., ENTRYPOINT ["sh", "my_entrypoint.sh"], ENTRYPOINT ["bash", "my_entrypoint.sh"]), ensure it runs no program in background (e.g, 'nginx & bash').
-Examine all the scripts in the repository. Ensure none of them runs an infinite loop. The following are a few examples of prohibited commands: 'sleep infinity', 'tail -f /dev/null', 'tail -f /dev/random'
-Run the Makefile.
+## General instructions
+
+- For the entire evaluation process, if you don't know how to check a requirement, or verify anything, the evaluated learner has to help you.
+- Ensure that all the files required to configure the application are located inside a srcs folder. The srcs folder must be located at the root of the repository.
+- Ensure that a Makefile is located at the root of the repository.
+- Before starting the evaluation, run this command in the terminal: "docker stop $(docker ps -qa); docker rm $(docker ps -qa); docker rmi -f $(docker images -qa); docker volume rm $(docker volume ls -q); docker network rm $(docker network ls -q) 2>/dev/null"
+- Then, run the following command to remove the host-mapped volume data directory (replace student_login with the login of the evaluated student): "sudo rm -rf /home/student_login/data/*"
+- Read the docker-compose.yml file. There mustn't be 'network: host' in it or 'links:'. Otherwise, the evaluation ends now.
+- Read the docker-compose.yml file. There must be 'network(s)' in it. Otherwise, the evaluation ends now.
+- Examine the Makefile and all the scripts in which Docker is used. There mustn't be '--link' in any of them. Otherwise, the evaluation ends now.
+- Examine the Dockerfiles. If you see 'tail -f' or any command run in background in any of them in the ENTRYPOINT section, the evaluation ends now. Same thing if 'bash' or 'sh' are used but not for running a script (e.g, 'nginx & bash' or 'bash').
+- Examine the Dockerfiles. The containers must be built either from the penultimate stable version of Alpine or Debian.
+- If the entrypoint is a script (e.g., ENTRYPOINT ["sh", "my_entrypoint.sh"], ENTRYPOINT ["bash", "my_entrypoint.sh"]), ensure it runs no program in background (e.g, 'nginx & bash').
+- Examine all the scripts in the repository. Ensure none of them runs an infinite loop. The following are a few examples of prohibited commands: 'sleep infinity', 'tail -f /dev/null', 'tail -f /dev/random'
+- Run the Makefile.
+
 Mandatory part
 This project involves setting up a small infrastructure composed of different services using docker compose. Ensure that all of the following points are correct.
 
