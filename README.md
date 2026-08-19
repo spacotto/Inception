@@ -41,12 +41,12 @@ flowchart TD
 ├── README.md
 ├── DEV_DOC.md
 ├── USER_DOC.md
-├── secrets    # Do NOT submit
+├── secrets    # Do NOT share!!! Add to .gitignore!
 |   ├── credentials.txt
 |   ├── db_password.txt
 |   └── db_root_password.txt
 └── srcs
-    ├── .env
+    ├── .env    # Do NOT share!!! Add to .gitignore!
     ├── docker-compose.yml
     └── requirements
         ├── bonus    # Not mandatory
