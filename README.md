@@ -20,8 +20,8 @@ flowchart LR
             WP["Container<br>WordPress+PHP"]
             NGINX["Container<br>NGINX"]
             
-            DB <--> |3306| WP
-            WP <--> |9000| NGINX
+            DB <-.-> |3306| WP
+            WP <-.-> |9000| NGINX
         end
         
         VolDB[("DB")]
