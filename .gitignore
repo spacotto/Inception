@@ -1,2 +1,6 @@
 # Project
 subject/
+
+# Secrets and Environment Variables
+srcs/.env
+secrets/

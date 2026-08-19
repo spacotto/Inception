@@ -1,50 +1,30 @@
-# ============================================================
-#  VARIABLES
-# ============================================================
-
-# Project specific variables
-
-# ------------------------------------------------------------
-#  General Variables
-# ------------------------------------------------------------
-
-ECHO     := echo -e
-
-# ------------------------------------------------------------
-#  Ansi Colors
-# ------------------------------------------------------------
-
-RESET    := \033[0m
-GRAY     := \033[1;90m
-RED      := \033[1;91m
-GREEN    := \033[1;92m
-YELLOW   := \033[1;93m
-BLUE     := \033[1;94m
-MAGENTA  := \033[1;95m
-CYAN     := \033[1;96m
-WHITE    := \033[1;97m
-
-
-# ============================================================
-#  RULES
-# ============================================================
-
-.PHONY: all help
-
-# ------------------------------------------------------------
-#  all — default target
-# ------------------------------------------------------------
+NAME = inception
 
 all:
-	@$(ECHO) ">>> $(YELLOW)<Action being performed>...$(RESET)"
-	@$(ECHO) ">>> $(CYAN)Done.$(RESET)"
+	@printf "Launch configuration ${NAME}...\n"
+	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env up -d
 
-# ------------------------------------------------------------
-#  help — list available targets
-# ------------------------------------------------------------
+build:
+	@printf "Building configuration ${NAME}...\n"
+	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env up -d --build
 
-help:
-	@$(ECHO) ""
-	@$(ECHO) " $(CYAN)AVAILABLE RULES$(RESET)"
-	@$(ECHO) "	$(CYAN)rule$(RESET)	Description"
-	@$(ECHO) ""
+down:
+	@printf "Stopping configuration ${NAME}...\n"
+	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env down
+
+re: down
+	@printf "Rebuild configuration ${NAME}...\n"
+	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env up -d --build
+
+clean: down
+	@printf "Cleaning configuration ${NAME}...\n"
+	@docker system prune -a
+
+fclean:
+	@printf "Total clean of all configurations docker\n"
+	@docker stop $$(docker ps -qa) 2>/dev/null || true
+	@docker system prune --all --force --volumes
+	@docker network prune --force
+	@docker volume prune --force
+
+.PHONY	: all build down re clean fclean
