@@ -34,7 +34,7 @@ flowchart TD
     WWW <-.-> |443| NGINX
 ```
 
-### Project Structure
+### Expected Project Structure
 ```bash
 .
 ├── Makefile
