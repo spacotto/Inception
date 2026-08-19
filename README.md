@@ -34,6 +34,40 @@ flowchart TD
     WWW <-.-> |443| NGINX
 ```
 
+### Project Structure
+```bash
+.
+├── Makefile
+├── README.md
+├── DEV_DOC.md
+├── USER_DOC.md
+├── secrets    # Do NOT submit
+|   ├── credentials.txt
+|   ├── db_password.txt
+|   └── db_root_password.txt
+└── srcs
+    ├── .env
+    ├── docker-compose.yml
+    └── requirements
+        ├── bonus    # Not mandatory
+        ├── mariadb
+        │   ├── conf
+        │   ├── tools
+        │   ├── Dockerfile
+        │   └── .dockerignore
+        ├── nginx
+        │   ├── conf
+        │   ├── tools
+        │   ├── Dockerfile
+        │   └── .dockerignore
+        ├── wordpress
+        │   ├── conf
+        │   ├── tools
+        │   ├── Dockerfile
+        │   └── .dockerignore
+        └── tools
+```
+
 ### Alpine vs Debian
 
 For this project, **Alpine Linux** was chosen as the base image for all containers.
