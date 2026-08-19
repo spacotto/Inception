@@ -31,7 +31,7 @@ flowchart TD
     VolWP <-.-> WP
     VolWP <-.-> NGINX
 
-    WWW -.-> |443| NGINX
+    WWW <-.-> |443| NGINX
 ```
 
 ### Virtual Machines vs Docker
