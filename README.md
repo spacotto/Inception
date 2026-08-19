@@ -10,29 +10,28 @@ section containing any relevant information about compilation, installation, and
 section must also explain the use of Docker and the sources included in the project. It must indicate the main design choices, as well as a comparison between:
 
 ```mermaid
-flowchart LR 
+flowchart TD
     WWW((WWW))
 
     subgraph Host [Computer HOST]
         subgraph Network [Docker network]
-            direction LR
             DB["Container<br>DB"]
             WP["Container<br>WordPress+PHP"]
             NGINX["Container<br>NGINX"]
-            
-            DB <-.-> |3306| WP
-            WP <-.-> |9000| NGINX
         end
         
         VolDB[("DB")]
         VolWP[("WordPress")]
-        
-        DB <-.-> VolDB
-        WP <-.-> VolWP
-        NGINX <-.-> VolWP
     end
 
-    WWW <.-> |443| NGINX
+    DB <-.-> |3306| WP
+    WP <-.-> |9000| NGINX
+    
+    VolDB <-.-> DB
+    VolWP <-.-> WP
+    VolWP <-.-> NGINX
+
+    WWW -.-> |443| NGINX
 ```
 
 ### Virtual Machines vs Docker
