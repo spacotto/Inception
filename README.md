@@ -27,12 +27,12 @@ flowchart LR
         VolDB[("DB")]
         VolWP[("WordPress")]
         
-        DB -.-> VolDB
-        WP -.-> VolWP
-        NGINX -.-> VolWP
+        DB <-.-> VolDB
+        WP <-.-> VolWP
+        NGINX <-.-> VolWP
     end
 
-    WWW -.-> |443| NGINX
+    WWW <.-> |443| NGINX
 ```
 
 ### Virtual Machines vs Docker
