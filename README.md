@@ -52,17 +52,23 @@ flowchart TD
         ├── bonus    # Not mandatory
         ├── mariadb
         │   ├── conf
+        |   |   └── ...
         │   ├── tools
+        |   |   └── ...
         │   ├── Dockerfile
         │   └── .dockerignore
         ├── nginx
         │   ├── conf
+        |   |   └── ...
         │   ├── tools
+        |   |   └── ...
         │   ├── Dockerfile
         │   └── .dockerignore
         ├── wordpress
         │   ├── conf
+        |   |   └── ...
         │   ├── tools
+        |   |   └── ...
         │   ├── Dockerfile
         │   └── .dockerignore
         └── tools
