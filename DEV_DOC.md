@@ -1,6 +1,6 @@
 # Developer Documentation
 
-This document provides a comprehensive technical guide for developers working on the Inception project. Its purpose is to explain the underlying architecture, detail the steps required to set up the environment from scratch, describe the build and launch processes using Docker Compose, and provide the necessary commands to effectively manage containers, volumes, and persistent data.
+This document provides a comprehensive technical guide for developers working on the Inception project. Its purpose is to explain the underlying architecture (which relies on **Alpine Linux 3.19** containers), detail the steps required to set up the environment from scratch, describe the build and launch processes using Docker Compose, and provide the necessary commands to effectively manage containers, volumes, and persistent data.
 
 ## Setting up the environment from scratch
 

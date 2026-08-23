@@ -1,9 +1,20 @@
 FROM alpine:3.19
 
-RUN apk update && apk upgrade && apk add --no-cache mariadb mariadb-client
+# Install MariaDB
+RUN apk update && apk add --no-cache mariadb mariadb-client
 
-COPY conf/ /etc/my.cnf.d/
-COPY tools/ /usr/local/bin/
+# Copy configuration and entrypoint
+COPY conf/my.cnf /etc/my.cnf.d/mariadb-server.cnf
+COPY tools/docker-entrypoint.sh /usr/local/bin/
 
+# Make the entrypoint executable
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Expose the standard MariaDB port
+EXPOSE 3306
+
+# Start via our initialization script
 ENTRYPOINT ["sh", "/usr/local/bin/docker-entrypoint.sh"]
+
+# The default command passed to the entrypoint
 CMD ["mysqld"]

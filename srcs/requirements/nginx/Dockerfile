@@ -1,10 +1,20 @@
 FROM alpine:3.19
 
-RUN apk update && apk upgrade && apk add --no-cache nginx openssl
+# Install NGINX and OpenSSL (for generating self-signed certificates)
+RUN apk update && apk add --no-cache nginx openssl
 
-COPY conf/ /etc/nginx/http.d/
-COPY tools/ /usr/local/bin/
+# Copy the NGINX configuration and entrypoint
+COPY conf/nginx.conf /etc/nginx/http.d/default.conf
+COPY tools/docker-entrypoint.sh /usr/local/bin/
 
+# Make the entrypoint executable
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Expose the HTTPS port
 EXPOSE 443
+
+# Start via our initialization script
 ENTRYPOINT ["sh", "/usr/local/bin/docker-entrypoint.sh"]
+
+# The default command passed to the entrypoint (daemon off keeps the container running)
 CMD ["nginx", "-g", "daemon off;"]

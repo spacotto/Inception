@@ -2,6 +2,8 @@
 
 This document serves as a straightforward guide for end users and administrators interacting with the Inception project. Its purpose is to explain the services provided by the infrastructure in simple terms, provide clear instructions on how to start and stop the project, demonstrate how to access the website and administration panels, and detail the procedures for managing credentials and verifying service health.
 
+*Note: The entire infrastructure is built on ultra-lightweight Alpine Linux 3.19 containers to maximize performance and minimize resource usage on the host machine.*
+
 ## Services provided by the stack
 This infrastructure consists of three main components working together:
 - **MariaDB (Database):** The backend storage system. It securely stores all website data, including posts, users, passwords, and settings.
