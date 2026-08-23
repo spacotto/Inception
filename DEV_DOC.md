@@ -5,14 +5,41 @@ This document provides a comprehensive technical guide for developers working on
 ## Setting up the environment from scratch
 
 ### Download the ISO
+Go to the [Alpine Linux Downloads page](https://alpinelinux.org/downloads/) and download the "Standard" or "Virtual" edition ISO. (Choose `x86_64` if you are on an Intel/AMD machine, or `aarch64` if you are on an Apple Silicon Mac).
 
 ### Allocate Resources (VM Settings)
 | Resource | Allocation |
 | :--- | :--- |
-| **CPU** | 2 Cores (1 core can work, but compiling software during docker build will be painfully slow). |
-| **RAM** | 2 GB to 4 GB (4 GB is ideal so the MariaDB database has plenty of breathing room). |
-| **Storage** | 15 GB to 20 GB (Dynamically allocated). Docker images can take up a few gigabytes, so 8GB is often too tight. |
-| **Network** | Set the network adapter to Bridged Adapter (or NAT with port forwarding for ports 443 and 22). This ensures you can access the VM from your local browser later. |
+| **CPU** | 2 Cores (Recommended for faster Docker image building). |
+| **RAM** | 1 GB to 2 GB (2 GB is plenty for Alpine + MariaDB + WordPress). |
+| **Storage** | 10 GB to 15 GB (Dynamically allocated). |
+| **Network** | Bridged Adapter (or NAT with port forwarding for `443` and `22`). |
+
+### OS Installation (`setup-alpine`)
+Boot up the VM with the ISO attached.
+
+1. When prompted for a login, type `root` (there is no password yet).
+
+2. Type the command to start the installer:
+
+```bash
+setup-alpine
+```
+
+3. The installer will ask you a series of questions:
+
+| | |
+| :--- | :--- |
+| **Keyboard Layout** | Select your language/variant. |
+| **Hostname** | e.g., `inception`. |
+| **Network** | Press `Enter` to use the default `eth0` and `dhcp`. |
+| **Root Password** | Set a secure password. |
+| **Timezone** | Type `?` to find yours, e.g., `Europe` then `Paris`. |
+| **Mirror** | Type `f` or `1` to select the fastest package mirror. |
+| **SSH server** | Press `Enter` to use `openssh`. |
+| **Disk setup** | This is the most important part! Type `sda` (or whatever your disk is named), and when asked how you want to use it, type `sys`: this installs it permanently to the hard drive. |
+
+4. Once it finishes, type `poweroff`, remove the ISO from your VM settings, and boot it back up!
 
 ### Configuring MariaDB
 
