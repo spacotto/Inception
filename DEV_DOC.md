@@ -41,13 +41,68 @@ setup-alpine
 
 4. Once it finishes, type `poweroff`, remove the ISO from your VM settings, and boot it back up!
 
-### Configuring MariaDB
+### Post-Installation Setup (Docker & Users)
+Log in as `root` with the password you just created.
+
+1. **Enable Community Packages:** Open `/etc/apk/repositories` with `vi` and uncomment the line ending in `/community`.
+2. **Create your user:** run `adduser spacotto` (replace with your login).
+3. **Install dependencies:** `apk update && apk add sudo git docker docker-cli-compose`
+4. **Enable Docker:** 
+   - `rc-update add docker boot`
+   - `service docker start`
+5. **Permissions:** Add your user to the required groups:
+   - `adduser spacotto wheel`
+   - `adduser spacotto docker`
+   - Run `visudo` and uncomment `%wheel ALL=(ALL:ALL) ALL` to enable sudo.
+
+### Host Machine Configuration
+Before launching the project, you must prepare the host environment:
+
+1. **Domain Name:** The project requires routing `spacotto.42.fr` to `127.0.0.1`.
+   - Edit `/etc/hosts` as root: `sudo vi /etc/hosts`
+   - Add the line: `127.0.0.1 spacotto.42.fr`
+2. **Data Directories:** Docker will not create parent directories for bind mounts securely. You must create them on the host:
+   ```bash
+   sudo mkdir -p /home/spacotto/data/mariadb
+   sudo mkdir -p /home/spacotto/data/wordpress
+   ```
+3. **Secrets & Environment:**
+   - Copy `srcs/.env.example` to `srcs/.env` and fill in the passwords.
+   - Copy the `secrets_example/` folder to `secrets/` and replace the placeholder passwords in the `.txt` files.
 
 ## Building and launching the project
-*(Describe how to build and launch the project using the Makefile and Docker Compose here.)*
 
+This project relies on a custom `Makefile` at the root of the repository to wrap Docker Compose commands for ease of use.
+
+- **To build and start all containers in the background:**
+  ```bash
+  make build
+  ```
+- **To stop the project without deleting volumes:**
+  ```bash
+  make down
+  ```
+- **To completely tear down the project (including all images, containers, and volumes):**
+  ```bash
+  make fclean
+  ```
+  
 ## Managing containers and volumes
-*(List relevant Docker commands to manage the containers, networks, and volumes here.)*
+
+As a developer, you will often need to debug the infrastructure. Here are the most relevant commands:
+
+- **List running containers:** `docker ps`
+- **View logs for a specific service:** `docker logs <container_name>` (e.g., `docker logs mariadb`)
+- **Open an interactive shell inside a container:** `docker exec -it <container_name> sh`
+- **List all volumes:** `docker volume ls`
+- **Inspect a specific volume:** `docker volume inspect <volume_name>`
+- **View Docker network details:** `docker network inspect inception_network`
 
 ## Data storage and persistence
-*(Identify where the project data is stored on the host machine and how it persists using Docker named volumes here.)*
+
+To ensure data survives container restarts and crashes, this project uses Docker Named Volumes configured to behave like bind mounts, adhering strictly to the subject requirements.
+
+- **MariaDB Database Files:** Stored persistently on the host at `/home/spacotto/data/mariadb`. 
+- **WordPress Website Files:** Stored persistently on the host at `/home/spacotto/data/wordpress`.
+
+This data persists completely independently of the containers' lifecycle. Even if you run `make down` and completely rebuild the `mariadb` image, the database records and WordPress posts will remain perfectly intact upon the next launch, provided the host directories are not manually deleted.
