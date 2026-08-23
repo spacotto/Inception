@@ -56,19 +56,18 @@ Log in as `root` with the password you just created.
    - Run `visudo` and uncomment `%wheel ALL=(ALL:ALL) ALL` to enable sudo.
 
 ### Host Machine Configuration
-Before launching the project, you must prepare the host environment:
+Before launching the project, you must prepare the host environment and credentials:
 
-1. **Domain Name:** The project requires routing `spacotto.42.fr` to `127.0.0.1`.
-   - Edit `/etc/hosts` as root: `sudo vi /etc/hosts`
-   - Add the line: `127.0.0.1 spacotto.42.fr`
-2. **Data Directories:** Docker will not create parent directories for bind mounts securely. You must create them on the host:
-   ```bash
-   sudo mkdir -p /home/spacotto/data/mariadb
-   sudo mkdir -p /home/spacotto/data/wordpress
-   ```
-3. **Secrets & Environment:**
+1. **Secrets & Environment:**
    - Copy `srcs/.env.example` to `srcs/.env` and fill in the passwords.
    - Copy the `secrets_example/` folder to `secrets/` and replace the placeholder passwords in the `.txt` files.
+2. **Automated Host Setup:** 
+   The project requires routing `spacotto.42.fr` to `127.0.0.1` and creating the persistent data directories in `/home/spacotto/data/`. 
+   To automate this securely, simply use the custom Makefile setup rule:
+   ```bash
+   make setup
+   ```
+   *(This rule is also automatically executed the first time you run `make` or `make all`).*
 
 ## Building and launching the project
 
