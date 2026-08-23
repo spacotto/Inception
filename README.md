@@ -123,6 +123,18 @@ For this project, **Alpine Linux** was chosen as the base image for all containe
 | **Best For** | Persisting database data, cross-container data sharing. | Injecting config files, live-reloading source code during dev. |
 
 ## Resources
-section listing classic references related to the topic (documentation, articles, tutorials, etc.), as well as a description of how AI was used — specifying for which tasks and which parts of the project.
+- [System administration](https://en.wikipedia.org/wiki/System_administrator)
+- [Virtual machine](https://en.wikipedia.org/wiki/Virtual_machine)
+- [OS-level virtualization (Containerization)](https://en.wikipedia.org/wiki/OS-level_virtualization)
+- [Docker](https://en.wikipedia.org/wiki/Docker_(software))
+- [Alpine Linux](https://en.wikipedia.org/wiki/Alpine_Linux)
+- [Debian](https://en.wikipedia.org/wiki/Debian)
+- [Daemon (computing)](https://en.wikipedia.org/wiki/Daemon_(computing))
+- [Init (PID 1)](https://en.wikipedia.org/wiki/Init)
+- [Transport Layer Security (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security)
+- [Nginx](https://en.wikipedia.org/wiki/Nginx)
+- [WordPress](https://en.wikipedia.org/wiki/WordPress)
+- [PHP](https://en.wikipedia.org/wiki/PHP)
+- [MariaDB](https://en.wikipedia.org/wiki/MariaDB)
 
 ### AI Usage
