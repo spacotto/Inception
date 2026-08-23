@@ -15,7 +15,8 @@ ECHO     := echo -e
 FIND     := /bin/find
 IGNORE   := 2>/dev/null || true
 MV       := /bin/mv
-RM       := /bin/rm -rf
+MKDIR    := mkdir -p
+SUDO     := sudo
 
 # ------------------------------------------------------------
 #  Ansi Colors
@@ -35,13 +36,27 @@ WHITE    := \033[1;97m
 #  RULES
 # ============================================================
 
-.PHONY: all build down re clean fclean help
+.PHONY: all setup build down re clean fclean help
+
+# ------------------------------------------------------------
+#  setup — configure host machine (directories and /etc/hosts)
+# ------------------------------------------------------------
+
+setup:
+	@$(ECHO) ">>> $(YELLOW)Setting up host environment for $(USER)...$(RESET)"
+	@$(SUDO) $(MKDIR) /home/$(USER)/data/mariadb
+	@$(SUDO) $(MKDIR) /home/$(USER)/data/wordpress
+	@if ! grep -q "$(USER).42.fr" /etc/hosts; then \
+		$(SUDO) sh -c 'echo "127.0.0.1\t$(USER).42.fr" >> /etc/hosts'; \
+		$(ECHO) ">>> $(GREEN)Added $(USER).42.fr to /etc/hosts$(RESET)"; \
+	fi
+	@$(ECHO) ">>> $(CYAN)Done.$(RESET)"
 
 # ------------------------------------------------------------
 #  all — default target
 # ------------------------------------------------------------
 
-all:
+all: setup
 	@$(ECHO) ">>> $(YELLOW)Launch configuration $(NAME)...$(RESET)"
 	@$(COMPOSE) up -d
 	@$(ECHO) ">>> $(CYAN)Done.$(RESET)"

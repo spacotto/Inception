@@ -1,4 +1,5 @@
 #!/bin/sh
+set -euo pipefail
 
 # Ensure the mysql directory exists and has correct permissions
 mkdir -p /run/mysqld
