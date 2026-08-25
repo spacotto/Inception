@@ -10,7 +10,7 @@ if [ ! -f /etc/nginx/ssl/inception.crt ]; then
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
         -keyout /etc/nginx/ssl/inception.key \
         -out /etc/nginx/ssl/inception.crt \
-        -subj "/C=IT/ST=Rome/L=Rome/O=42/OU=42Roma/CN=$DOMAIN_NAME"
+        -subj "/C=IT/ST=LeHavre/L=LeHavre/O=42/OU=42LeHavre/CN=$DOMAIN_NAME"
         
     echo "SSL certificate generated successfully!"
 fi
