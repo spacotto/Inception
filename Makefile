@@ -5,13 +5,13 @@
 NAME		:= inception
 ENV		:= srcs/.env
 COMPOSE_FILE	:= ./srcs/docker-compose.yml
-COMPOSE		:= docker-compose -f $(COMPOSE_FILE) --env-file $(ENV)
+COMPOSE		:= docker compose -f $(COMPOSE_FILE) --env-file $(ENV)
 
 # ------------------------------------------------------------
 #  General Variables
 # ------------------------------------------------------------
 
-ECHO     := echo -e
+ECHO     := echo 
 FIND     := /bin/find
 IGNORE   := 2>/dev/null || true
 MV       := /bin/mv
