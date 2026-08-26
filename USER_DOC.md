@@ -69,3 +69,8 @@ Once the infrastructure is successfully deployed, administrators should perform 
    Administrators can access the database directly to verify it was populated correctly during setup:
    - Run `docker exec -it mariadb mariadb -u <mysql_user> -p<mysql_password>` (using the credentials defined in your `secrets`).
    - Once inside the MariaDB prompt, run `SHOW DATABASES;`, then `USE <database_name>;`, and finally `SHOW TABLES;`. This proves the database is correctly initialized and not empty.
+5. **Verify Persistence Across Host Reboots:** 
+   To guarantee that data is permanently bound to the host machine and strictly independent of the container lifecycle:
+   - Reboot the host Virtual Machine entirely (`sudo reboot`).
+   - Once the VM is back online, navigate to the project root and restart the infrastructure (`make all`).
+   - Access the main website and verify that it is fully functional. All previously made comments, posts, and page edits must remain perfectly intact, proving that both MariaDB and WordPress successfully persisted their data.

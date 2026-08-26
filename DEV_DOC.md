@@ -79,7 +79,7 @@ To ensure data survives container restarts and crashes, this project uses Docker
 - **MariaDB Database Files:** Stored persistently on the host at `/home/spacotto/data/mariadb`. 
 - **WordPress Website Files:** Stored persistently on the host at `/home/spacotto/data/wordpress`.
 
-This data persists completely independently of the containers' lifecycle. Even if you run `make down` and completely rebuild the `mariadb` image, the database records and WordPress posts will remain perfectly intact upon the next launch, provided the host directories are not manually deleted.
+This data persists completely independently of the containers' lifecycle. Because the volumes map directly to the host's physical storage, the database records, WordPress configurations, and website edits will remain perfectly intact even if you run `make down`, completely rebuild the images, or **perform a full reboot of the host Virtual Machine**, provided the host directories are not manually deleted.
 
 ## Architectural Best Practices
 
