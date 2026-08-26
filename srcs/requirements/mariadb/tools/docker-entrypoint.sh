@@ -47,6 +47,6 @@ else
     echo "MariaDB database already exists. Skipping initialization."
 fi
 
-# Execute the main command passed from the Dockerfile CMD (which is "mysqld")
+# Execute the main command passed from the Dockerfile CMD (which is "mariadbd-safe")
 echo "Starting MariaDB server..."
 exec "$@"
