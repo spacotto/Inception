@@ -89,7 +89,7 @@ flowchart TD
 
 ### Alpine vs Debian
 
-For this project, **Alpine Linux 3.19** (the penultimate stable version, as required by the subject) was chosen as the base image for all containers.
+For this project, **Alpine Linux 3.23** (the penultimate stable version, as required by the subject) was chosen as the base image for all containers.
 
 | Feature             | Alpine Linux                                                                                  | Debian                                                           |
 |:------------------- |:--------------------------------------------------------------------------------------------- |:---------------------------------------------------------------- |
