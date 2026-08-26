@@ -98,5 +98,7 @@ volumes:
       o: bind
 
 networks:
+  # Custom bridge network connecting all containers
+  # Explicitly defined to comply with the prohibition of 'network: host' and 'links'
   inception_network:
     driver: bridge
