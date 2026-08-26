@@ -87,6 +87,25 @@ flowchart TD
         └── tools
 ```
 
+### How Docker and Docker Compose Work
+
+**Docker** is a platform that uses OS-level virtualization to deliver software in packages called containers. Containers are isolated from one another and bundle their own software, libraries, and configuration files. They share the host's operating system kernel, making them incredibly lightweight compared to full virtual machines.
+
+**Docker Compose** is an orchestration tool for defining and running multi-container Docker applications. It uses a single YAML file (`docker-compose.yml`) to configure the application's services, networks, volumes, and secrets. With a single command, you can predictably create and start all the services as a unified infrastructure.
+
+### Docker Image With vs Without Docker Compose
+
+A Docker image itself is identical whether it is run with or without Docker Compose. The difference lies entirely in **how the container is instantiated and managed**:
+- **Without Docker Compose (Vanilla Docker CLI):** You must manually build each image and run each container using long, complex CLI commands (e.g., `docker run -d --name nginx -p 443:443 --network inception_network -v wp_vol:/var/www/html -e ENV_VAR=value nginx-image`). This is tedious and highly prone to human error when managing multiple interconnected services.
+- **With Docker Compose:** The orchestration of building images, mounting volumes, injecting secrets/environment variables, and attaching networks is fully automated via the `docker-compose.yml` file. This guarantees that the entire infrastructure is spun up consistently and correctly every single time with just `docker compose up`.
+
+### Directory Structure Pertinence
+
+The directory structure required for this project is specifically designed to enforce separation of concerns, modularity, and security:
+- **`srcs/` vs Root:** The `docker-compose.yml` and all build files are nested inside `srcs/` to keep the project root strictly clean for documentation, global variables (like `secrets`), and the global `Makefile`.
+- **`requirements/` Isolation:** Each service (`mariadb`, `nginx`, `wordpress`) has its own dedicated folder. Inside these folders, configurations (`conf/`) are cleanly separated from initialization scripts (`tools/`) and the `Dockerfile`. 
+- **Build Context Security:** This strict modularity ensures that each container's Docker build context is as small as possible. It physically prevents configuration files or sensitive scripts from one service from accidentally leaking into the Docker image of another.
+
 ### Alpine vs Debian
 
 For this project, **Alpine Linux 3.23** (the penultimate stable version, as required by the subject) was chosen as the base image for all containers. We intentionally avoid using the `latest` tag to ensure strict reproducibility: relying on a specific, pinned version guarantees that our infrastructure builds deterministically and will not suddenly break due to unexpected upstream updates.
