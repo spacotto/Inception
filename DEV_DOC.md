@@ -56,3 +56,11 @@ To ensure data survives container restarts and crashes, this project uses Docker
 - **WordPress Website Files:** Stored persistently on the host at `/home/spacotto/data/wordpress`.
 
 This data persists completely independently of the containers' lifecycle. Even if you run `make down` and completely rebuild the `mariadb` image, the database records and WordPress posts will remain perfectly intact upon the next launch, provided the host directories are not manually deleted.
+
+## Architectural Best Practices
+
+To ensure a robust, secure, and modern containerized infrastructure, the following design principles were strictly implemented:
+
+- **Isolated Custom Networking:** The project explicitly defines and uses a custom bridge network (`inception_network`). Legacy features such as the `--link` flag and `network: host` mode are intentionally avoided to ensure strict network isolation and security between services.
+- **Native Foreground Execution:** Containers are configured to run their main processes natively in the foreground (e.g., `mysqld`, `nginx -g "daemon off;"`, `php-fpm82 -F`). This ensures proper Docker lifecycle management and logging, completely eliminating the need for anti-patterns like `tail -f` or `sleep`.
+- **Clean Entrypoint Scripts:** The `ENTRYPOINT` scripts are designed to execute their configuration tasks and cleanly transition to the main process. There are no dangling or interactive shells (such as backgrounded `bash` or `sh` commands) keeping the containers running artificially.
