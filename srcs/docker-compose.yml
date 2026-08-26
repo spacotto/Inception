@@ -75,6 +75,7 @@ services:
     depends_on:
       - wordpress
     ports:
+      # Exclusively expose HTTPS (443). HTTP (80) is strictly prohibited.
       - "443:443"
     volumes:
       - wordpress_vol:/var/www/html

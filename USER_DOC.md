@@ -23,10 +23,12 @@ Administrators can control the entire infrastructure using a simplified set of M
 - **`make clean`** / **`make fclean`** / **`make reset`**: Various levels of cleaning the environment, ranging from clearing unused images to a total wipe of all persistent data.
 - **`make help`**: Run this command at any time to see a full, detailed list of all available commands and what they do.
   
-  ## Accessing the website and administration panel
+## Accessing the website and administration panel
   
-  Since the web server is configured to route traffic securely to your local domain, you must access the site using your `login.42.fr` (e.g., `https://spacotto.42.fr`).
-- **Main Website:** Navigate to `https://spacotto.42.fr` in your web browser. (Your browser may display a security warning because the SSL certificate is self-signed; this is expected and safe to bypass).
+To strictly enforce security requirements, **port 80 (HTTP) is completely disabled**. You must explicitly include `https://` in your URL, otherwise the connection will fail.
+
+Since the web server is configured to route traffic securely to your local domain, you must access the site using your `login.42.fr` (e.g., `https://spacotto.42.fr`).
+- **Main Website:** Navigate to `https://spacotto.42.fr` in your web browser. *(Note: Your browser will display a security warning because the SSL certificate is self-signed. This is expected—click "Advanced" and "Proceed" to safely bypass it).*
 - **Administration Panel:** Navigate to `https://spacotto.42.fr/wp-admin` to log in and manage the website.
 
 ## Locating and managing credentials
