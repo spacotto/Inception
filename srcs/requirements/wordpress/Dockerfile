@@ -1,4 +1,4 @@
-FROM alpine:3.19
+FROM alpine:3.23
 
 # Install PHP-FPM, WordPress dependencies, and MariaDB client (for WP-CLI database checks)
 RUN apk update && apk add --no-cache \
