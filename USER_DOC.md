@@ -61,8 +61,9 @@ Once the infrastructure is successfully deployed, administrators should perform 
    Navigate to the main website, log in using the standard user credentials provided in your `secrets`, and successfully post a comment on a default article to verify database write permissions.
 3. **Verify CMS Administrator Capabilities:** 
    Navigate to `https://<login>.42.fr/wp-admin`. 
-   > [!WARNING]
-   > **Security Policy:** To prevent automated brute-force attacks, the Administrator username (configured in `secrets`) **MUST NOT** include predictable keywords like `admin` or `Admin` (e.g., `admin`, `administrator`, `Admin-login`).
+
+> [!WARNING]
+> **Security Policy:** To prevent automated brute-force attacks, the Administrator username (configured in `secrets`) **MUST NOT** include predictable keywords like `admin` or `Admin` (e.g., `admin`, `administrator`, `Admin-login`).
    
    Log in with the Administrator account, edit a page, save it, and refresh the public website to verify that the edits propagate immediately.
 4. **Verify Database Integrity and Access:** 
