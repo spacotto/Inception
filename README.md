@@ -175,3 +175,8 @@ Containers attached to this custom network can talk to each other securely using
 - [MariaDB](https://en.wikipedia.org/wiki/MariaDB)
 
 ### AI Usage
+- Brainstorming
+- Research
+- Bugfixing
+- Audit
+- Documentation Assistance
