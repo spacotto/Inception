@@ -87,38 +87,14 @@ flowchart TD
         └── tools
 ```
 
-### How Docker and Docker Compose Work
+The directory structure required by the project subject is not arbitrary; it is specifically designed to enforce separation of concerns, modularity, and build security.
 
-**Docker** is a platform that uses OS-level virtualization to deliver software in packages called containers. Containers are isolated from one another and bundle their own software, libraries, and configuration files. They share the host's operating system kernel, making them incredibly lightweight compared to full virtual machines.
-
-**Docker Compose** is an orchestration tool for defining and running multi-container Docker applications. It uses a single YAML file (`docker-compose.yml`) to configure the application's services, networks, volumes, and secrets. With a single command, you can predictably create and start all the services as a unified infrastructure.
-
-### Docker Image With vs Without Docker Compose
-
-A Docker image itself is identical whether it is run with or without Docker Compose. The difference lies entirely in **how the container is instantiated and managed**:
-- **Without Docker Compose (Vanilla Docker CLI):** You must manually build each image and run each container using long, complex CLI commands (e.g., `docker run -d --name nginx -p 443:443 --network inception_network -v wp_vol:/var/www/html -e ENV_VAR=value nginx-image`). This is tedious and highly prone to human error when managing multiple interconnected services.
-- **With Docker Compose:** The orchestration of building images, mounting volumes, injecting secrets/environment variables, and attaching networks is fully automated via the `docker-compose.yml` file. This guarantees that the entire infrastructure is spun up consistently and correctly every single time with just `docker compose up`.
-
-### Directory Structure Pertinence
-
-The directory structure required for this project is specifically designed to enforce separation of concerns, modularity, and security:
-- **`srcs/` vs Root:** The `docker-compose.yml` and all build files are nested inside `srcs/` to keep the project root strictly clean for documentation, global variables (like `secrets`), and the global `Makefile`.
-- **`requirements/` Isolation:** Each service (`mariadb`, `nginx`, `wordpress`) has its own dedicated folder. Inside these folders, configurations (`conf/`) are cleanly separated from initialization scripts (`tools/`) and the `Dockerfile`. 
-- **Build Context Security:** This strict modularity ensures that each container's Docker build context is as small as possible. It physically prevents configuration files or sensitive scripts from one service from accidentally leaking into the Docker image of another.
-
-### Alpine vs Debian
-
-For this project, **Alpine Linux 3.23** (the penultimate stable version, as required by the subject) was chosen as the base image for all containers. We intentionally avoid using the `latest` tag to ensure strict reproducibility: relying on a specific, pinned version guarantees that our infrastructure builds deterministically and will not suddenly break due to unexpected upstream updates.
-
-| Feature             | Alpine Linux                                                                                  | Debian                                                           |
-|:------------------- |:--------------------------------------------------------------------------------------------- |:---------------------------------------------------------------- |
-| **Size**            | Extremely small (base image is ~5MB).                                                         | Larger (base image is ~100MB+).                                  |
-| **Package Manager** | `apk` (fast and simple).                                                                      | `apt` (feature-rich and widely used).                            |
-| **C Library**       | `musl libc` (lightweight but can cause compatibility issues with some pre-compiled binaries). | `glibc` (standard, highly compatible).                           |
-| **Security**        | Minimal surface area for attacks due to small footprint.                                      | Larger attack surface, but benefits from rapid security updates. |
-
-> [!IMPORTANT]
-> **Why Alpine?** Alpine has been chosen for its minimal footprint, which speeds up build times and reduces overhead, perfectly aligning with the project's performance requirements. While more standard and easier for beginners, Debian is too heavy for the strict resource optimization goals of this setup.
+| Directory / Level      | Pertinence and Architectural Benefit                                                                                                                                                                                                           |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`srcs/` vs Root**    | The `docker-compose.yml` and all build files are nested inside `srcs/` to keep the project root clean for documentation, global variables (like `secrets`), and the global `Makefile`.                                                         |
+| **`requirements/`**    | Isolates each service (`mariadb`, `nginx`, `wordpress`) into its own dedicated folder, ensuring each service is self-contained.                                                                                                                |
+| **`conf/` & `tools/`** | Cleanly separates static configuration files (`nginx.conf`, `www.conf`) from dynamic initialization scripts (`docker-entrypoint.sh`).                                                                                                          |
+| **Build Context**      | This strict hierarchy ensures that each container's Docker build context is as small as possible. It physically prevents configuration files or sensitive scripts from one service from accidentally leaking into the Docker image of another. |
 
 ### Virtual Machines vs Docker
 
@@ -128,6 +104,30 @@ For this project, **Alpine Linux 3.23** (the penultimate stable version, as requ
 | **Performance**  | High resource overhead (CPU, RAM, storage).       | Lightweight and highly efficient.               |
 | **Startup Time** | Slow (takes minutes to boot the OS).              | Fast (starts in milliseconds/seconds).          |
 | **Isolation**    | Strong, hardware-level isolation.                 | Process-level isolation via namespaces/cgroups. |
+| **Portability**  | Hardware/Hypervisor dependent; difficult to move. | "Build once, run anywhere"; highly portable.    |
+| **Density**      | Low; limited by the massive overhead of each VM.  | High; you can run many containers on one host.  |
+
+### Docker vs. Docker Compose
+
+**Docker** is a **platform that uses OS-level virtualization to deliver software in packages called containers**. Containers are isolated from one another and bundle their own software, libraries, and configuration files. They share the host's operating system kernel, making them incredibly lightweight compared to full virtual machines.
+
+**Docker Compose** is an **orchestration tool** for defining and running multi-container Docker applications. It uses a single YAML file (`docker-compose.yml`) to configure the application's services, networks, volumes, and secrets. With a single command, you can predictably create and start all the services as a unified infrastructure. While both tools are part of the same ecosystem, they serve distinct purposes in the lifecycle of a containerized application. An image itself is entirely identical regardless of which method you use; the difference lies strictly in how the container is instantiated and managed.
+
+| Feature              | Vanilla Docker CLI                                                                                                        | Docker Compose                                                                                             |
+|:-------------------- |:------------------------------------------------------------------------------------------------------------------------- |:---------------------------------------------------------------------------------------------------------- |
+| **Primary Scope**    | Managing individual containers, images, and volumes one by one.                                                           | Orchestrating multi-container applications as a unified system.                                            |
+| **Execution**        | Requires long, complex, and error-prone commands (e.g., `docker run -d -p 443:443 --network my-net -v vol:/var/www ...`). | Requires a single, simple command (`docker compose up -d`).                                                |
+| **Configuration**    | Passed entirely through command-line arguments at runtime.                                                                | Defined declaratively in a `docker-compose.yml` file.                                                      |
+| **Reproducibility**  | Low; relies on the user remembering the exact CLI flags and execution order.                                              | High; the YAML file acts as documentation and guarantees identical deployments.                            |
+| **The Docker Image** | *Identical.* An image built or run with `docker run` is structurally exactly the same as one run with Compose.            | *Identical.* Compose simply automates the networking, volumes, and environment variables injected into it. |
+
+So, **what is difference between a Docker image used with docker compose and without docker compose**? To be absolutely clear: **there is zero difference in the underlying Docker image itself**. 
+
+Whether you build an image via the `docker build` command or via `docker-compose build`, the resulting binary artifact is exactly the same. The difference strictly lies in **the deployment context**. 
+
+When an image is used **without Docker Compose**, it is isolated by default. The administrator must manually inject every environment variable, mount every volume, and manually attach it to custom networks using massive, tedious CLI commands (`docker run -d --name nginx -p 443...`).
+
+When the exact same image is used **with Docker Compose**, it is deployed as part of a cohesive "stack". The `docker-compose.yml` file acts as a manifest that automatically manages the complex lifecycle (building, injecting secrets, attaching networks, binding volumes, and resolving dependencies like `depends_on`). Compose doesn't change the image; it simply orchestrates the environment *around* the image.
 
 ### Secrets vs Environment Variables
 

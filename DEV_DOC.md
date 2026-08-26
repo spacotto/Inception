@@ -2,7 +2,22 @@
 
 This document provides a comprehensive technical guide for developers working on the Inception project. Its purpose is to explain the underlying architecture (which relies on **Alpine Linux 3.23** containers), detail the steps required to set up the environment from scratch, describe the build and launch processes using Docker Compose, and provide the necessary commands to effectively manage containers, volumes, and persistent data.
 
+## Alpine vs Debian
+
+For this project, **Alpine Linux 3.23** (the penultimate stable version, as required by the subject) was chosen as the base image for all containers. We intentionally avoid using the `latest` tag to ensure strict reproducibility: relying on a specific, pinned version guarantees that our infrastructure builds deterministically and will not suddenly break due to unexpected upstream updates.
+
+| Feature             | Alpine Linux                                                                                  | Debian                                                           |
+| ------------------- | --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| **Size**            | Extremely small (base image is ~5MB).                                                         | Larger (base image is ~100MB+).                                  |
+| **Package Manager** | `apk` (fast and simple).                                                                      | `apt` (feature-rich and widely used).                            |
+| **C Library**       | `musl libc` (lightweight but can cause compatibility issues with some pre-compiled binaries). | `glibc` (standard, highly compatible).                           |
+| **Security**        | Minimal surface area for attacks due to small footprint.                                      | Larger attack surface, but benefits from rapid security updates. |
+
+> [!IMPORTANT]
+> **Why Alpine?** Alpine has been chosen for its minimal footprint, which speeds up build times and reduces overhead, perfectly aligning with the project's performance requirements. While more standard and easier for beginners, Debian is too heavy for the strict resource optimization goals of this setup.
+
 ## Prerequisites
+
 - VM
 
 ## Setting up the environment from scratch
@@ -15,9 +30,11 @@ Before launching the project, you must prepare the host environment and credenti
 2. **Automated Host Setup:** 
    The project requires routing `spacotto.42.fr` to `127.0.0.1` and creating the persistent data directories in `/home/spacotto/data/`. 
    To automate this securely, simply use the custom Makefile setup rule:
+   
    ```bash
    make setup
    ```
+   
    *(This rule is also automatically executed the first time you run `make` or `make all`).*
 
 ## Makefile Rules Reference
@@ -33,7 +50,8 @@ This project relies on a custom `Makefile` at the root of the repository to wrap
 - **`make fclean`**: Performs a deep clean. Stops all running containers across the host, and aggressively prunes all images, containers, networks, and Docker-managed volumes.
 - **`make reset`**: Performs a total environment wipe. It completely stops and forcefully removes all Docker entities (containers, images, volumes, networks) and **deletes the host machine data directories** in `/home/$(USER)/data/`.
 - **`make help`**: Displays a helpful in-terminal list of all these available rules.
-## Managing containers and volumes
+  
+  ## Managing containers and volumes
 
 As a developer, you will often need to debug the infrastructure. Here are the most relevant commands:
 
