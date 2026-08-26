@@ -2,6 +2,7 @@
 #  VARIABLES
 # ============================================================
 
+USER		:= spacotto
 NAME		:= inception
 ENV		:= srcs/.env
 COMPOSE_FILE	:= ./srcs/docker-compose.yml
@@ -36,7 +37,7 @@ WHITE    := \033[1;97m
 #  RULES
 # ============================================================
 
-.PHONY: all setup build down re clean fclean help
+.PHONY: all setup build down re clean fclean reset help
 
 # ------------------------------------------------------------
 #  setup — configure host machine (directories and /etc/hosts)
@@ -110,6 +111,20 @@ fclean:
 	@$(ECHO) ">>> $(CYAN)Done.$(RESET)"
 
 # ------------------------------------------------------------
+#  reset — wipe all docker data and host volumes
+# ------------------------------------------------------------
+
+reset:
+	@$(ECHO) ">>> $(YELLOW)Resetting environment completely...$(RESET)"
+	@docker stop $$(docker ps -qa) $(IGNORE)
+	@docker rm $$(docker ps -qa) $(IGNORE)
+	@docker rmi -f $$(docker images -qa) $(IGNORE)
+	@docker volume rm $$(docker volume ls -q) $(IGNORE)
+	@docker network rm $$(docker network ls -q) $(IGNORE)
+	@$(SUDO) rm -rf /home/$(USER)/data/*
+	@$(ECHO) ">>> $(CYAN)Done.$(RESET)"
+
+# ------------------------------------------------------------
 #  help — show available rules
 # ------------------------------------------------------------
 
@@ -117,11 +132,12 @@ help:
 	@$(ECHO) ""
 	@$(ECHO) " $(CYAN)AVAILABLE RULES$(RESET)"
 	@$(ECHO) ""
-	@$(ECHO) "     $(CYAN)all$(RESET)    	Launch configuration"
-	@$(ECHO) "     $(CYAN)build$(RESET)  	Build and launch configuration"
-	@$(ECHO) "     $(CYAN)down$(RESET)   	Stop and remove containers"
-	@$(ECHO) "     $(CYAN)re$(RESET)     	Restart and rebuild configuration"
-	@$(ECHO) "     $(CYAN)clean$(RESET)  	Clean all docker images and containers"
-	@$(ECHO) "     $(CYAN)fclean$(RESET) 	Deep clean of all docker data"
-	@$(ECHO) "     $(CYAN)help$(RESET)   	Show available rules"
+	@$(ECHO) "     $(CYAN)all$(RESET)        	Launch configuration"
+	@$(ECHO) "     $(CYAN)build$(RESET)      	Build and launch configuration"
+	@$(ECHO) "     $(CYAN)down$(RESET)       	Stop and remove containers"
+	@$(ECHO) "     $(CYAN)re$(RESET)         	Restart and rebuild configuration"
+	@$(ECHO) "     $(CYAN)clean$(RESET)      	Clean all docker images and containers"
+	@$(ECHO) "     $(CYAN)fclean$(RESET)     	Deep clean of all docker data"
+	@$(ECHO) "     $(CYAN)reset$(RESET)      	Wipe all docker data and host volumes"
+	@$(ECHO) "     $(CYAN)help$(RESET)       	Show available rules"
 	@$(ECHO) ""
