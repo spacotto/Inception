@@ -1,7 +1,8 @@
 #!/bin/sh
 set -euo pipefail
 
-# Generate a self-signed SSL certificate if it does not already exist
+# Security requirement: Generate a self-signed SSL/TLS certificate if it does not already exist.
+# This ensures all web traffic over port 443 is securely encrypted.
 if [ ! -f /etc/nginx/ssl/inception.crt ]; then
     echo "Generating self-signed SSL certificate for $DOMAIN_NAME..."
     
