@@ -52,26 +52,30 @@ To ensure the infrastructure is healthy:
 
 Once the infrastructure is successfully deployed, administrators should perform the following standard verifications to ensure all services are functioning correctly:
 
-1. **Verify Persistent Storage Binding:** 
-   Run `docker volume ls` to list the active volumes. Then, inspect them:
-   - `docker volume inspect inception_wordpress_vol` (Verify `Options.device` points to `/home/<login>/data/wordpress`)
-   - `docker volume inspect inception_mariadb_vol` (Verify `Options.device` points to `/home/<login>/data/mariadb`)
-   This confirms data persistence is active and correctly mapped to the host machine.
-2. **Verify CMS User Capabilities:** 
-   Navigate to the main website, log in using the standard user credentials provided in your `secrets`, and successfully post a comment on a default article to verify database write permissions.
-3. **Verify CMS Administrator Capabilities:** 
-   Navigate to `https://<login>.42.fr/wp-admin`. 
+### Verify Persistent Storage Binding
+Run `docker volume ls` to list the active volumes. Then, inspect them:
+- `docker volume inspect inception_wordpress_vol` (Verify `Options.device` points to `/home/<login>/data/wordpress`)
+- `docker volume inspect inception_mariadb_vol` (Verify `Options.device` points to `/home/<login>/data/mariadb`)
+This confirms data persistence is active and correctly mapped to the host machine.
+
+### Verify CMS User Capabilities   
+Navigate to the main website, log in using the standard user credentials provided in your `secrets`, and successfully post a comment on a default article to verify database write permissions.
+
+### Verify CMS Administrator Capabilities
+Navigate to `https://<login>.42.fr/wp-admin`. 
 
 > [!WARNING]
 > **Security Policy:** To prevent automated brute-force attacks, the Administrator username (configured in `secrets`) **MUST NOT** include predictable keywords like `admin` or `Admin` (e.g., `admin`, `administrator`, `Admin-login`).
    
-   Log in with the Administrator account, edit a page, save it, and refresh the public website to verify that the edits propagate immediately.
-4. **Verify Database Integrity and Access:** 
-   Administrators can access the database directly to verify it was populated correctly during setup:
-   - Run `docker exec -it mariadb mariadb -u <mysql_user> -p<mysql_password>` (using the credentials defined in your `secrets`).
-   - Once inside the MariaDB prompt, run `SHOW DATABASES;`, then `USE <database_name>;`, and finally `SHOW TABLES;`. This proves the database is correctly initialized and not empty.
-5. **Verify Persistence Across Host Reboots:** 
-   To guarantee that data is permanently bound to the host machine and strictly independent of the container lifecycle:
-   - Reboot the host Virtual Machine entirely (`sudo reboot`).
-   - Once the VM is back online, navigate to the project root and restart the infrastructure (`make all`).
-   - Access the main website and verify that it is fully functional. All previously made comments, posts, and page edits must remain perfectly intact, proving that both MariaDB and WordPress successfully persisted their data.
+Log in with the Administrator account, edit a page, save it, and refresh the public website to verify that the edits propagate immediately.
+
+### Verify Database Integrity and Access
+Administrators can access the database directly to verify it was populated correctly during setup:
+- Run `docker exec -it mariadb mariadb -u <mysql_user> -p<mysql_password>` (using the credentials defined in your `secrets`).
+- Once inside the MariaDB prompt, run `SHOW DATABASES;`, then `USE <database_name>;`, and finally `SHOW TABLES;`. This proves the database is correctly initialized and not empty.
+
+### Verify Persistence Across Host Reboots
+To guarantee that data is permanently bound to the host machine and strictly independent of the container lifecycle:
+- Reboot the host Virtual Machine entirely (`sudo reboot`).
+- Once the VM is back online, navigate to the project root and restart the infrastructure (`make all`).
+- Access the main website and verify that it is fully functional. All previously made comments, posts, and page edits must remain perfectly intact, proving that both MariaDB and WordPress successfully persisted their data.
