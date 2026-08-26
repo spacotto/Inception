@@ -139,6 +139,10 @@ When the exact same image is used **with Docker Compose**, it is deployed as par
 
 ### Docker Network vs Host Network
 
+**What is a Docker Network?** Think of a Docker network as a private, virtual LAN (Local Area Network) created exclusively for your containers. Instead of connecting your containers directly to your computer's main network (where everything is dangerously exposed), Docker builds an invisible, isolated router inside your machine.
+
+Containers attached to this custom network can talk to each other securely using their container names as hostnames (e.g., WordPress can securely connect to `mariadb`), but they remain completely invisible to the outside world unless you explicitly punch a hole through the firewall (like we did by exposing port 443 for NGINX).
+
 | Feature            | Docker Network (e.g., bridge, custom)                     | Host Network                                             |
 |:------------------ |:--------------------------------------------------------- |:-------------------------------------------------------- |
 | **Isolation**      | High (creates a private internal network for containers). | None (shares the host's networking namespace).           |
