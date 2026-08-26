@@ -24,20 +24,20 @@ For this project, **Alpine Linux 3.23** (the penultimate stable version, as requ
 
 Before launching the project, you must prepare the host environment and credentials:
 
-1. **Secrets & Environment:**
+### Secrets & Environment
+1. Copy `srcs/.env.example` to `srcs/.env` and fill in the passwords.
+2. Copy the `secrets_example/` folder to `secrets/` and replace the placeholder passwords in the `.txt` files.
    
-   - Copy `srcs/.env.example` to `srcs/.env` and fill in the passwords.
-   - Copy the `secrets_example/` folder to `secrets/` and replace the placeholder passwords in the `.txt` files.
-
-2. **Automated Host Setup:** 
-   The project requires routing `spacotto.42.fr` to `127.0.0.1` and creating the persistent data directories in `/home/spacotto/data/`. 
-   To automate this securely, simply use the custom Makefile setup rule:
+### Automated Host Setup
+The project requires routing `spacotto.42.fr` to `127.0.0.1` and creating the persistent data directories in `/home/spacotto/data/`. 
+To automate this securely, simply use the custom Makefile setup rule:
    
-   ```bash
-   make setup
-   ```
+```bash
+make setup
+```
    
-   *(This rule is also automatically executed the first time you run `make` or `make all`).*
+>[!NOTE]
+>This rule is also automatically executed the first time you run `make` or `make all`).
 
 ## Makefile Rules Reference
 
