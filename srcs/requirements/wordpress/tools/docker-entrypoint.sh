@@ -43,6 +43,8 @@ if [ ! -f wp-config.php ]; then
                      --dbhost=mariadb \
                      --allow-root
     
+    # Requirement: Ensure the WordPress website is fully installed and configured automatically.
+    # Using WP-CLI 'core install' completely bypasses the manual web-based "WordPress Installation page".
     echo "Installing WordPress core..."
     wp core install --url=$DOMAIN_NAME \
                     --title="Inception" \
