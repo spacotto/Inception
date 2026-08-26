@@ -53,7 +53,10 @@ To ensure the infrastructure is healthy:
 Once the infrastructure is successfully deployed, administrators should perform the following standard verifications to ensure all services are functioning correctly:
 
 1. **Verify Persistent Storage Binding:** 
-   Run `docker volume ls` followed by `docker volume inspect inception_wordpress_vol`. Verify that the `Options.device` output points precisely to your local host folder (`/home/<login>/data/wordpress`). This confirms data persistence is active.
+   Run `docker volume ls` to list the active volumes. Then, inspect them:
+   - `docker volume inspect inception_wordpress_vol` (Verify `Options.device` points to `/home/<login>/data/wordpress`)
+   - `docker volume inspect inception_mariadb_vol` (Verify `Options.device` points to `/home/<login>/data/mariadb`)
+   This confirms data persistence is active and correctly mapped to the host machine.
 2. **Verify CMS User Capabilities:** 
    Navigate to the main website, log in using the standard user credentials provided in your `secrets`, and successfully post a comment on a default article to verify database write permissions.
 3. **Verify CMS Administrator Capabilities:** 
@@ -62,3 +65,7 @@ Once the infrastructure is successfully deployed, administrators should perform 
    > **Security Policy:** To prevent automated brute-force attacks, the Administrator username (configured in `secrets`) **MUST NOT** include predictable keywords like `admin` or `Admin` (e.g., `admin`, `administrator`, `Admin-login`).
    
    Log in with the Administrator account, edit a page, save it, and refresh the public website to verify that the edits propagate immediately.
+4. **Verify Database Integrity and Access:** 
+   Administrators can access the database directly to verify it was populated correctly during setup:
+   - Run `docker exec -it mariadb mariadb -u <mysql_user> -p<mysql_password>` (using the credentials defined in your `secrets`).
+   - Once inside the MariaDB prompt, run `SHOW DATABASES;`, then `USE <database_name>;`, and finally `SHOW TABLES;`. This proves the database is correctly initialized and not empty.
