@@ -3,27 +3,27 @@ FROM alpine:3.23
 # It is strictly forbidden to pull ready-made application images (e.g., wordpress:latest) from DockerHub.
 # Install PHP-FPM, WordPress dependencies, and MariaDB client (for WP-CLI database checks)
 RUN apk update && apk add --no-cache \
-    php82 \
-    php82-fpm \
-    php82-mysqli \
-    php82-json \
-    php82-curl \
-    php82-dom \
-    php82-exif \
-    php82-fileinfo \
-    php82-mbstring \
-    php82-openssl \
-    php82-xml \
-    php82-zip \
-    php82-phar \
+    php \
+    php-fpm \
+    php-mysqli \
+    php-json \
+    php-curl \
+    php-dom \
+    php-exif \
+    php-fileinfo \
+    php-mbstring \
+    php-openssl \
+    php-xml \
+    php-zip \
+    php-phar \
     wget \
     mariadb-client
 
-# Create a symlink so the 'php' command automatically points to 'php82'
-RUN ln -s /usr/bin/php82 /usr/bin/php
+# Create a symlink so the 'php' command automatically points to 'php85'
+# RUN ln -s /usr/bin/php85 /usr/bin/php
 
 # Copy the PHP-FPM configuration and entrypoint
-COPY conf/www.conf /etc/php82/php-fpm.d/www.conf
+COPY conf/www.conf /etc/php*/php-fpm.d/www.conf
 COPY tools/docker-entrypoint.sh /usr/local/bin/
 
 # Make the entrypoint executable
@@ -36,4 +36,4 @@ EXPOSE 9000
 ENTRYPOINT ["sh", "/usr/local/bin/docker-entrypoint.sh"]
 
 # The default command passed to the entrypoint (-F forces it to run in the foreground)
-CMD ["php-fpm82", "-F"]
+CMD ["php-fpm84", "-F"]
