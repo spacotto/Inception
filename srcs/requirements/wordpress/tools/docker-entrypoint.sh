@@ -1,6 +1,19 @@
 #!/bin/sh
 set -euo pipefail
 
+# If you prefer to rely solely on the .env variables, comment the variable
+# redefinition at the start of the files and uncomment the variables in the
+# .env file
+MYSQL_DATABASE=$(cat /secrets/mysql_database)
+MYSQL_PASSWORD=$(cat /secrets/mysql_password)
+MYSQL_USER=$(cat /secrets/mysql_user)
+WP_ADMIN_EMAIL=$(cat /secrets/wp_admin_email)
+WP_ADMIN_PASSWORD=$(cat /secrets/wp_admin_password)
+WP_ADMIN_USER=$(cat /secrets/wp_admin_user)
+WP_USER_EMAIL=$(cat /secrets/wp_user_email)
+WP_USER_PASSWORD=$(cat /secrets/wp_user_password)
+WP_USER=$(cat /secrets/wp_user)
+
 # Download WP-CLI if it doesn't exist
 if [ ! -f /usr/local/bin/wp ]; then
     wget -q https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar

@@ -1,6 +1,14 @@
 #!/bin/sh
 set -euo pipefail
 
+# If you prefer to rely solely on the .env variables, comment the variable
+# redefinition at the start of the files and uncomment the variables in the
+# .env file
+MYSQL_DATABASE=$(cat /secrets/mysql_database)
+MYSQL_PASSWORD=$(cat /secrets/mysql_password)
+MYSQL_ROOT_PASSWORD=$(cat /secrets/mysql_root_password)
+MYSQL_USER=$(cat /secrets/mysql_user)
+
 # Ensure the mysql directory exists and has correct permissions
 mkdir -p /run/mysqld
 chown -R mysql:mysql /run/mysqld
