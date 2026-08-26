@@ -1,5 +1,6 @@
 FROM alpine:3.23
-
+# Requirement: Build custom images from a bare OS base.
+# It is strictly forbidden to pull ready-made application images (e.g., wordpress:latest) from DockerHub.
 # Install PHP-FPM, WordPress dependencies, and MariaDB client (for WP-CLI database checks)
 RUN apk update && apk add --no-cache \
     php82 \
