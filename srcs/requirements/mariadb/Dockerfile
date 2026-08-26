@@ -18,4 +18,6 @@ EXPOSE 3306
 ENTRYPOINT ["sh", "/usr/local/bin/docker-entrypoint.sh"]
 
 # The default command passed to the entrypoint
-CMD ["mysqld"]
+
+CMD [ "mariadbd-safe", \
+"--defaults-file=/etc/my.cnf.d/mariadb-server.cnf" ]

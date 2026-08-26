@@ -23,7 +23,7 @@ RUN apk update && apk add --no-cache \
 # RUN ln -s /usr/bin/php85 /usr/bin/php
 
 # Copy the PHP-FPM configuration and entrypoint
-COPY conf/www.conf /etc/php*/php-fpm.d/www.conf
+COPY conf/www.conf /etc/php84/php-fpm.d/www.conf
 COPY tools/docker-entrypoint.sh /usr/local/bin/
 
 # Make the entrypoint executable

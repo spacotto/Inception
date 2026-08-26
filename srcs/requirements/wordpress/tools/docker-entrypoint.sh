@@ -68,4 +68,5 @@ fi
 chown -R nobody:nobody /var/www/html
 
 echo "Starting PHP-FPM..."
+exec "$@"
 # exec "/usr/sbin/php-fpm84 -F"

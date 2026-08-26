@@ -40,6 +40,14 @@ WHITE    := \033[1;97m
 .PHONY: all setup build down re clean fclean reset help
 
 # ------------------------------------------------------------
+#  all — default target
+# ------------------------------------------------------------
+
+all: setup build
+	@$(ECHO) ">>> $(YELLOW)Launching $(NAME)...$(RESET)"
+	@$(ECHO) ">>> $(CYAN)Done.$(RESET)"
+
+# ------------------------------------------------------------
 #  setup — configure host machine (directories and /etc/hosts)
 # ------------------------------------------------------------
 
@@ -51,15 +59,6 @@ setup:
 		$(SUDO) sh -c 'echo "127.0.0.1\t$(USER).42.fr" >> /etc/hosts'; \
 		$(ECHO) ">>> $(GREEN)Added $(USER).42.fr to /etc/hosts$(RESET)"; \
 	fi
-	@$(ECHO) ">>> $(CYAN)Done.$(RESET)"
-
-# ------------------------------------------------------------
-#  all — default target
-# ------------------------------------------------------------
-
-all: setup
-	@$(ECHO) ">>> $(YELLOW)Launch configuration $(NAME)...$(RESET)"
-	@$(COMPOSE) up -d
 	@$(ECHO) ">>> $(CYAN)Done.$(RESET)"
 
 # ------------------------------------------------------------

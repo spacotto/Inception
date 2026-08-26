@@ -29,6 +29,12 @@ services:
     restart: always
     volumes:
       - mariadb_vol:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb -uroot -p$(cat /run/secrets/mysql_root_password) -e 'SELECT 1';"] 
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
     networks:
       - inception_network
     env_file:
@@ -46,7 +52,8 @@ services:
     container_name: wordpress
     restart: always
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     volumes:
       - wordpress_vol:/var/www/html
     networks:
