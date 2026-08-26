@@ -10,9 +10,11 @@ This document serves as a straightforward guide for end users and administrators
 
 This infrastructure consists of three main components working together:
 
-- **MariaDB (Database):** The backend storage system. It securely stores all website data, including posts, users, passwords, and settings.
-- **WordPress (Application):** The Content Management System (CMS). It provides the interface to write articles, manage users, and dynamically generate website pages by querying the database.
-- **NGINX (Web Server):** The front door of the system. It handles incoming web traffic securely (using HTTPS/TLS), serves static files directly, and forwards dynamic PHP requests to WordPress.
+| Service | Description |
+| :--- | :--- |
+| **MariaDB (Database)** | The backend storage system. It securely stores all website data, including posts, users, passwords, and settings. |
+| **WordPress (Application)** | The Content Management System (CMS). It provides the interface to write articles, manage users, and dynamically generate website pages by querying the database. |
+| **NGINX (Web Server)** | The front door of the system. It handles incoming web traffic securely (using HTTPS/TLS), serves static files directly, and forwards dynamic PHP requests to WordPress. |
 
 ## Starting and stopping the project
 
