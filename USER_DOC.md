@@ -11,10 +11,11 @@ This infrastructure consists of three main components working together:
 - **NGINX (Web Server):** The front door of the system. It handles incoming web traffic securely (using HTTPS/TLS), serves static files directly, and forwards dynamic PHP requests to WordPress.
 
 ## Starting and stopping the project
-Administrators can control the entire infrastructure using simple commands from the root of the project:
-- **Start everything:** Run `make` or `make build`. This will download the components, configure them, and start the system in the background.
-- **Stop everything safely:** Run `make down`. This gracefully stops the services without deleting any data.
-
+Administrators can control the entire infrastructure using a simplified set of Makefile commands from the root of the project:
+- **`make`** or **`make all`**: The default command to start the entire system in the background.
+- **`make down`**: Gracefully stops the services without deleting any data.
+- **`make clean`** / **`make fclean`** / **`make reset`**: Various levels of cleaning the environment, ranging from clearing unused images to a total wipe of all persistent data.
+- **`make help`**: Run this command at any time to see a full, detailed list of all available commands and what they do.
 ## Accessing the website and administration panel
 Since the web server is configured to route traffic securely to your local domain, you must access the site using your `login.42.fr` (e.g., `https://spacotto.42.fr`).
 - **Main Website:** Navigate to `https://spacotto.42.fr` in your web browser. (Your browser may display a security warning because the SSL certificate is self-signed; this is expected and safe to bypass).

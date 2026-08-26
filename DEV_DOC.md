@@ -20,23 +20,19 @@ Before launching the project, you must prepare the host environment and credenti
    ```
    *(This rule is also automatically executed the first time you run `make` or `make all`).*
 
-## Building and launching the project
+## Makefile Rules Reference
 
-This project relies on a custom `Makefile` at the root of the repository to wrap Docker Compose commands for ease of use.
+This project relies on a custom `Makefile` at the root of the repository to wrap Docker Compose commands and environment setup scripts for ease of use. Below is a comprehensive list of all available commands:
 
-- **To build and start all containers in the background:**
-  ```bash
-  make build
-  ```
-- **To stop the project without deleting volumes:**
-  ```bash
-  make down
-  ```
-- **To completely tear down the project (including all images, containers, and volumes):**
-  ```bash
-  make fclean
-  ```
-  
+- **`make setup`**: Prepares the host machine by creating required data directories (`/home/$(USER)/data/mariadb` and `/home/$(USER)/data/wordpress`) and configuring local domain routing in `/etc/hosts`.
+- **`make all`**: The default rule. It runs `setup` and then launches the infrastructure in the background using `docker compose up -d`.
+- **`make build`**: Builds or rebuilds the Docker images and launches the containers (`docker compose up -d --build`).
+- **`make down`**: Safely stops and removes the running containers and the custom network, but preserves all images and persistent volume data.
+- **`make re`**: Restarts the infrastructure by running `down` followed by `build`.
+- **`make clean`**: Runs `down` and then removes all unused and dangling Docker images and containers from the system via `docker system prune -a`.
+- **`make fclean`**: Performs a deep clean. Stops all running containers across the host, and aggressively prunes all images, containers, networks, and Docker-managed volumes.
+- **`make reset`**: Performs a total environment wipe. It completely stops and forcefully removes all Docker entities (containers, images, volumes, networks) and **deletes the host machine data directories** in `/home/$(USER)/data/`.
+- **`make help`**: Displays a helpful in-terminal list of all these available rules.
 ## Managing containers and volumes
 
 As a developer, you will often need to debug the infrastructure. Here are the most relevant commands:
