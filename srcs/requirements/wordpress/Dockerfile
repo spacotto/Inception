@@ -1,6 +1,7 @@
 FROM alpine:3.23
 # Requirement: Build custom images from a bare OS base.
 # It is strictly forbidden to pull ready-made application images (e.g., wordpress:latest) from DockerHub.
+
 # Install PHP-FPM, WordPress dependencies, and MariaDB client (for WP-CLI database checks)
 RUN apk update && apk add --no-cache \
     php \
@@ -18,9 +19,6 @@ RUN apk update && apk add --no-cache \
     php-phar \
     wget \
     mariadb-client
-
-# Create a symlink so the 'php' command automatically points to 'php85'
-# RUN ln -s /usr/bin/php85 /usr/bin/php
 
 # Copy the PHP-FPM configuration and entrypoint
 COPY conf/www.conf /etc/php84/php-fpm.d/www.conf
