@@ -47,3 +47,18 @@ To ensure the infrastructure is healthy:
 1. Open a terminal on the host machine and navigate to the `srcs` directory (or use `make all` from the root).
 2. Run `docker compose ps` (from inside the `srcs` folder). You should see three containers listed (`nginx`, `wordpress`, and `mariadb`) running properly.
 3. If a service is misbehaving, you can check its logs by running `docker compose logs <container_name>` (e.g., `docker compose logs wordpress`).
+
+## Application Verification and Testing
+
+Once the infrastructure is successfully deployed, administrators should perform the following standard verifications to ensure all services are functioning correctly:
+
+1. **Verify Persistent Storage Binding:** 
+   Run `docker volume ls` followed by `docker volume inspect inception_wordpress_vol`. Verify that the `Options.device` output points precisely to your local host folder (`/home/<login>/data/wordpress`). This confirms data persistence is active.
+2. **Verify CMS User Capabilities:** 
+   Navigate to the main website, log in using the standard user credentials provided in your `secrets`, and successfully post a comment on a default article to verify database write permissions.
+3. **Verify CMS Administrator Capabilities:** 
+   Navigate to `https://<login>.42.fr/wp-admin`. 
+   > [!WARNING]
+   > **Security Policy:** To prevent automated brute-force attacks, the Administrator username (configured in `secrets`) **MUST NOT** include predictable keywords like `admin` or `Admin` (e.g., `admin`, `administrator`, `Admin-login`).
+   
+   Log in with the Administrator account, edit a page, save it, and refresh the public website to verify that the edits propagate immediately.
