@@ -121,7 +121,7 @@ reset:
 	@docker volume rm $$(docker volume ls -q) $(IGNORE)
 	@docker network rm $$(docker network ls -q) $(IGNORE)
 	@$(SUDO) rm -rf /home/$(USER)/data/*
-	@$(ECHO) ">>> $(CYAN)Done.$(RESET)"
+	@$(ECHO) ">>> $(CYAN)Environment reset.$(RESET)"
 
 # ------------------------------------------------------------
 #  help — show available rules
