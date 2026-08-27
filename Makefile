@@ -83,10 +83,8 @@ down:
 #  re — restart and rebuild configuration
 # ------------------------------------------------------------
 
-re: down
-	@$(ECHO) ">>> $(YELLOW)Rebuild configuration $(NAME)...$(RESET)"
-	@$(COMPOSE) up -d --build
-	@$(ECHO) ">>> $(CYAN)Done.$(RESET)"
+re: fclean all
+	@$(ECHO) ">>> $(CYAN)Restarted and rebuilt everything.$(RESET)"
 
 # ------------------------------------------------------------
 #  clean — clean all docker images and containers
@@ -103,10 +101,11 @@ clean: down
 
 fclean:
 	@$(ECHO) ">>> $(YELLOW)Total clean of all docker configurations...$(RESET)"
-	@docker stop $$(docker ps -qa) $(IGNORE) 
+	@$(COMPOSE) down -v --rmi local
 	@docker system prune --all --force --volumes
 	@docker network prune --force
 	@docker volume prune --force
+	@$(SUDO) rm -rf /home/$(USER)/data/*
 	@$(ECHO) ">>> $(CYAN)Done.$(RESET)"
 
 # ------------------------------------------------------------

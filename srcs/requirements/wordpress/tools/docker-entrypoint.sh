@@ -41,6 +41,7 @@ if [ ! -f wp-config.php ]; then
                      --dbuser=$MYSQL_USER \
                      --dbpass=$MYSQL_PASSWORD \
                      --dbhost=mariadb \
+                     --path="/var/www/html" \
                      --allow-root
     
     # Requirement: Ensure the WordPress website is fully installed and configured automatically.
@@ -69,4 +70,3 @@ chown -R nobody:nobody /var/www/html
 
 echo "Starting PHP-FPM..."
 exec "$@"
-# exec "/usr/sbin/php-fpm84 -F"
