@@ -18,7 +18,14 @@ For this project, **Alpine Linux 3.23** (the penultimate stable version, as requ
 
 ## Prerequisites
 
-- VM
+Before building and launching the infrastructure, ensure your system meets the following requirements:
+
+- **Virtual Machine**: A Linux-based Virtual Machine (any modern distribution can be used; this project was built and tested on Ubuntu).
+- **Docker**: The Docker Engine must be installed and running.
+- **Docker Compose**: Required to orchestrate the multi-container setup (usually bundled with modern Docker installations as `docker compose`).
+- **Make**: Required to execute the automation scripts provided in the `Makefile`.
+- **Git**: Required to clone and navigate the repository.
+- **Sudo Privileges**: Required by the `make setup` script to modify `/etc/hosts` (for local domain routing) and to create the persistent data directories on the host machine.
 
 ## Setting up the environment from scratch
 

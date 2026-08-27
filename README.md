@@ -6,7 +6,7 @@ Inception is a **System Administration project** that introduces you to **Docker
 
 ## Instructions
 
-To build and launch the infrastructure from scratch, ensure you are running a Linux Virtual Machine (Alpine) with Docker, Git, and Make installed.
+To build and launch the infrastructure from scratch, ensure you are running a Linux Virtual Machine (e.g., Ubuntu) with Docker, Git, and Make installed.
 
 ### Setup environment variables and secrets
 
